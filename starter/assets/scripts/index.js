@@ -3,6 +3,7 @@ let cityInputElement=document.querySelector("#city");
 let citySearchInputEl = document.querySelector("#searched-city");
 let weatherContainerEl=document.querySelector("#current-weather-block");
 
+
 const getCityWeather = function(city){
     if(city){
       const apiKey = "2726ba0963847f452e627fcd003602d0"
@@ -22,7 +23,7 @@ const getCityWeather = function(city){
 let displayWeather = function (weatherData, city) {
    //clear old weather content
    weatherContainerEl.textContent= "";  
-   citySearchInputEl.textContent=searchCity;
+   citySearchInputEl.textContent=city;
 
   let currentDate = document.createElement("span");
   currentDate.textContent = moment(weatherData.dt.value).format(
