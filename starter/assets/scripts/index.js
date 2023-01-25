@@ -42,6 +42,14 @@ let displayWeather = function (weatherData, city) {
      //append to temp container
      weatherContainerEl.appendChild(tempElement);
 
+        //create a span element to for Humidity data
+   let humidityEl = document.createElement("span");
+   humidityEl.textContent = "Level Humidity: " + weatherData.main.humidity + " %";
+   humidityEl.classList = "list-group-item"
+
+      //append to humidity container
+      weatherContainerEl.appendChild(humidityEl);
+
   
 };
 
