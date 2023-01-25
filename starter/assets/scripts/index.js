@@ -27,7 +27,7 @@ let displayWeather = function (weatherData, city) {
 
   let currentDate = document.createElement("span");
   currentDate.textContent = moment(weatherData.dt.value).format(
-    "dddd, MMMM D, YYYY, H:mm a"
+    " (D/MM/YYYY)"
   );
   citySearchInputEl.appendChild(currentDate);
 
