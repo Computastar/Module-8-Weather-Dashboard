@@ -50,6 +50,13 @@ let displayWeather = function (weatherData, city) {
       //append to humidity container
       weatherContainerEl.appendChild(humidityEl);
 
+   //create a span element to for Wind data
+   let windSpeedEl = document.createElement("span");
+   windSpeedEl.textContent = "Wind Speed: " + weatherData.wind.speed + " MPH";
+   windSpeedEl.classList = "list-group-item"
+
+      //append to wind speed container
+      weatherContainerEl.appendChild(windSpeedEl);
   
 };
 
