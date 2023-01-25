@@ -20,6 +20,10 @@ const getCityWeather = function(city){
   };
 
 let displayWeather = function (weatherData, city) {
+   //clear old weather content
+   weatherContainerEl.textContent= "";  
+   citySearchInputEl.textContent=searchCity;
+
   let currentDate = document.createElement("span");
   currentDate.textContent = moment(weatherData.dt.value).format(
     "dddd, MMMM D, YYYY, H:mm a"
