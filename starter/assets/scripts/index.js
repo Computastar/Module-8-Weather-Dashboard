@@ -18,14 +18,22 @@ const getCityWeather = function(city){
     }
   };
 
-let displayWeather = function(weatherData, city){
+let displayWeather = function (weatherData, city) {
+  let currentDate = document.createElement("span");
+  currentDate.textContent = moment(weatherData.dt.value).format(
+    "dddd, MMMM D, YYYY, H:mm a"
+  );
+  citySearchInputEl.appendChild(currentDate);
 
-let currentDate = document.createElement("span");
-currentDate.textContent= moment(weatherData.dt.value).format("dddd, MMMM D, YYYY, H:mm a")
-citySearchInputEl.appendChild(currentDate);
+  //create an image element for icon displayed
+  let weatherIcon = document.createElement("img");
 
-
-  }
+  weatherIcon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
+  );
+  citySearchInputEl.appendChild(weatherIcon);
+};
 
   var formSumbitAction = function(event){
     event.preventDefault();
