@@ -96,7 +96,7 @@ console.log("in the loop")
 
      //create date element
      let forecastDate = document.createElement("h5")
-     forecastDate.textContent= moment.unix(forecast[i].dt).format("D/ MM / YY");
+     forecastDate.textContent = moment.unix(forecast[i].dt).format("D/MM/YY");
      forecastDate.classList = "card-header text-center bg-primary"
      forecastEl.appendChild(forecastDate);
     
@@ -112,28 +112,28 @@ console.log("in the loop")
       //create temperature span
       var forecastTempEl=document.createElement("span");
       forecastTempEl.classList = "card-body text-center bg-info";
-      forecastTempEl.textContent = forecast[i].main.temp + " °C";
+      forecastTempEl.textContent = "Temp: " + forecast[i].main.temp + " °C";
 
        //append to forecast card
        forecastEl.appendChild(forecastTempEl);
 
-     //create humidity span
-      var forecastHumidityEl=document.createElement("span");
-      forecastHumidityEl.classList = "card-body text-center";
-      forecastHumidityEl.textContent = forecast[i].main.humidity + "  %";
-
-      //append to forecast card
-      forecastEl.appendChild(forecastHumidityEl);
-      
-
-       // create wind span
+              // create wind span
       var forecastWindspeedEl=document.createElement("span");
       forecastWindspeedEl.classList = "card-body text-center bg-info";
-      forecastWindspeedEl.textContent = forecast[i].wind.speed + " MPH";
+      forecastWindspeedEl.textContent = "Wind: " + forecast[i].wind.speed + " MPH";
 
       //append to forecast card
       forecastEl.appendChild(forecastWindspeedEl);
 
+
+     //create humidity span
+      var forecastHumidityEl=document.createElement("span");
+      forecastHumidityEl.classList = "card-body text-center";
+      forecastHumidityEl.textContent = "Humidity: " + forecast[i].main.humidity + "  %";
+
+      //append to forecast card
+      forecastEl.appendChild(forecastHumidityEl);
+      
        console.log(forecastEl);
       //append to five day container
        forecastContainerEl.appendChild(forecastEl);
