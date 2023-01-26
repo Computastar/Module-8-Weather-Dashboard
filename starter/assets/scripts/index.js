@@ -85,9 +85,9 @@ const display5Day = function(weatherData){
   console.log(weatherData)
 console.log("in the loop")
   const forecast =  weatherData.list;
-      for(var i=5; i < forecast.length; i=i+8){
-     const dailyForecast = forecast[i];
-      
+      for(var i=5; i < forecast.length; i=i+6){
+      console.log(forecast[i])
+    
      
      var forecastEl=document.createElement("div");
      forecastEl.classList = "d-flex card bg-secondary text-white mr-2 ml-1";
@@ -96,12 +96,51 @@ console.log("in the loop")
 
      //create date element
      let forecastDate = document.createElement("h5")
-     forecastDate.textContent= moment.unix(dailyForecast.dt).format("D/ MM / YY");
+     forecastDate.textContent= moment.unix(forecast[i].dt).format("D/ MM / YY");
      forecastDate.classList = "card-header text-center bg-primary"
      forecastEl.appendChild(forecastDate);
-    }
+    
 
-  }
+      //create an image icon element
+      let weatherIcon = document.createElement("img")
+      weatherIcon.classList = "card-body text-center";
+      //weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${forecast[i].weather[0].icon}@2x.png`);  
+
+      //append to forecast card
+      forecastEl.appendChild(weatherIcon);
+      
+      //create temperature span
+      var forecastTempEl=document.createElement("span");
+      forecastTempEl.classList = "card-body text-center bg-info";
+      forecastTempEl.textContent = forecast[i].main.temp + " °C";
+
+       //append to forecast card
+       forecastEl.appendChild(forecastTempEl);
+
+     //create humidity span
+      var forecastHumidityEl=document.createElement("span");
+      forecastHumidityEl.classList = "card-body text-center";
+      forecastHumidityEl.textContent = forecast[i].main.humidity + "  %";
+
+      //append to forecast card
+      forecastEl.appendChild(forecastHumidityEl);
+      
+
+       // create wind span
+      var forecastWindspeedEl=document.createElement("span");
+      forecastWindspeedEl.classList = "card-body text-center bg-info";
+      forecastWindspeedEl.textContent = forecast[i].wind.speed + " MPH";
+
+      //append to forecast card
+      forecastEl.appendChild(forecastWindspeedEl);
+
+       console.log(forecastEl);
+      //append to five day container
+       forecastContainerEl.appendChild(forecastEl);
+      }
+   }
+  
+
 
   var formSumbitAction = function(event){
     event.preventDefault();
