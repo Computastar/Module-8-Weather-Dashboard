@@ -104,7 +104,7 @@ console.log("in the loop")
       //create an image icon element
       let weatherIcon = document.createElement("img")
       weatherIcon.classList = "card-body text-center";
-      //weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${forecast[i].weather[0].icon}@2x.png`);  
+      weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${forecast[i].weather[0].icon}@2x.png`);  
 
       //append to forecast card
       forecastEl.appendChild(weatherIcon);
