@@ -53,28 +53,28 @@ let displayWeather = function (weatherData, city) {
 
   //create a span element to for temperature data
   let tempElement = document.createElement("span");
-  tempElement.textContent = "Current Temp: " + weatherData[0].main.temp + " °C";
+  tempElement.textContent = "Temp: " + weatherData[0].main.temp + " °C";
   tempElement.classList = "list-group-item";
 
   //append to temp container
   weatherContainerEl.appendChild(tempElement);
 
+    //create a span element to for Wind data
+    let windSpeedEl = document.createElement("span");
+    windSpeedEl.textContent = "Wind: " + weatherData[0].wind.speed + " MPH";
+    windSpeedEl.classList = "list-group-item";
+  
+    //append to wind speed container
+    weatherContainerEl.appendChild(windSpeedEl);
+
   //create a span element to for Humidity data
   let humidityEl = document.createElement("span");
   humidityEl.textContent =
-    "Level Humidity: " + weatherData[0].main.humidity + " %";
+    "Humidity: " + weatherData[0].main.humidity + "%";
   humidityEl.classList = "list-group-item";
 
   //append to humidity container
   weatherContainerEl.appendChild(humidityEl);
-
-  //create a span element to for Wind data
-  let windSpeedEl = document.createElement("span");
-  windSpeedEl.textContent = "Wind Speed: " + weatherData[0].wind.speed + " MPH";
-  windSpeedEl.classList = "list-group-item";
-
-  //append to wind speed container
-  weatherContainerEl.appendChild(windSpeedEl);
 };
 
 const display5Day = function(weatherData){
@@ -129,7 +129,7 @@ console.log("in the loop")
      //create humidity span
       var forecastHumidityEl=document.createElement("span");
       forecastHumidityEl.classList = "card-body text-center";
-      forecastHumidityEl.textContent = "Humidity: " + forecast[i].main.humidity + "  %";
+      forecastHumidityEl.textContent = "Humidity: " + forecast[i].main.humidity + "%";
 
       //append to forecast card
       forecastEl.appendChild(forecastHumidityEl);
