@@ -239,5 +239,34 @@ var getWeatherData = function(city){
     }
   }
 
+  function getLocation() {
+    alert("muther fuker")
+    if (navigator.geolocation) {
+      //position = navigator.geolocation.getCurrentPosition(showError);
+      console.log("Lat=" + position.coords.latitude + " Long=" + position.coords.longitude)
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+  
+  function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        x.innerHTML = "User denied the request for Geolocation."
+        break;
+      case error.POSITION_UNAVAILABLE:
+        x.innerHTML = "Location information is unavailable."
+        break;
+      case error.TIMEOUT:
+        x.innerHTML = "The request to get user location timed out."
+        break;
+      case error.UNKNOWN_ERROR:
+        x.innerHTML = "An unknown error occurred."
+        break;
+    }
+  }
+
+
   //cityFormElement.addEventListener("submit", formSumbitAction);
   document.getElementById("search").addEventListener("click", formSumbitAction)
+  document.getElementById("useLocation").addEventListener("click", getLocation)
