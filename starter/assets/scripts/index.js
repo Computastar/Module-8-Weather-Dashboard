@@ -30,8 +30,8 @@ getCityWeather = function(city){
         return weatherData;
         }
     });
-  }
   };
+}
 
 let displayWeather = function (weatherData, city) {
   //clear old weather content
@@ -192,13 +192,24 @@ pastSearchBtnElement.addEventListener("click", pastSearchHandler);
     var city = cityInputElement.value.trim();
     if(city){
         var weatherData = getCityWeather(city);
+
+        //console.log(foobarr.status)
+
+        console.log(weatherData)
+
+        if (weatherData.status === 404){
+          alert("City not found")
+        }
+        else {
+
         weatherData = weatherData.responseJSON;
-        //console.log(weatherData)
+        
         displayWeather(weatherData, city);
         display5Day(weatherData, city)
         cities.unshift({city});
         saveSearch();
         pastSearch(city);
+        }
     } else{
         alert("Please enter a City Name!");
     }
