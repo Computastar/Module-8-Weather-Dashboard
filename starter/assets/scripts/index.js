@@ -86,7 +86,7 @@ const display5Day = function(weatherData){
   console.log(weatherData)
 console.log("in the loop")
   const forecast =  weatherData.list;
-      for(var i=5; i < forecast.length; i=i+6){
+      for(var i=5; i < forecast.length; i=i+8){
       console.log(forecast[i])
     
      
@@ -186,10 +186,18 @@ document.getElementById("clearCity").addEventListener("click", clearPastSearch)
 cityFormElement.addEventListener("submit", formSumbitAction);
 pastSearchBtnElement.addEventListener("click", pastSearchHandler);
 
+
+var toUpper = function(inputString){
+  return toUpper = inputString.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+}
+
   var formSumbitAction = function(event){
     event.preventDefault();
 
     var city = cityInputElement.value.trim();
+
+    city = toUpper(city)
+
     if(city){
         var weatherData = getCityWeather(city);
 
