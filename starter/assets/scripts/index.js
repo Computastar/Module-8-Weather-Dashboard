@@ -4,6 +4,7 @@ let citySearchInputEl = document.querySelector("#searched-city");
 let weatherContainerEl=document.querySelector("#current-weather-block");
 let forecastTitleEl = document.querySelector("#forecast");
 let forecastContainerEl = document.querySelector("#five-day-container");
+let pastSearchBtnElement = document.querySelector("#past-search-buttons");
 
 var weatherData = weatherData;
 
@@ -140,7 +141,50 @@ console.log("in the loop")
       }
    }
   
+   var cities = [];
 
+   var saveSearch = function(){
+console.log(cities)
+    localStorage.setItem("cities", JSON.stringify(cities));
+  };
+
+  var pastSearch = function(pastSearch){
+ 
+    // console.log(pastSearch)
+
+    pastSearchEl = document.createElement("button");
+    pastSearchEl.textContent = pastSearch;
+    pastSearchEl.classList = "d-flex w-100 btn-light border p-2";
+    pastSearchEl.setAttribute("data-city",pastSearch)
+    pastSearchEl.setAttribute("type", "submit");
+
+    pastSearchBtnElement.prepend(pastSearchEl);
+}
+
+
+var pastSearchHandler = function(event){
+    // pastSearchBtnElement.innerHTML= " ";
+    var city = event.target.getAttribute("data-city");
+    console.log('event.target', event.target);
+    if(city){
+        getCityWeather(city);
+        get5Day(city);
+    }
+}
+
+var clearPastSearch = function(){
+  forecastContainerEl.innerHTML=""
+  pastSearchBtnElement.innerHTML=""
+  forecastTitleEl.innerHTML=""
+  weatherContainerEl.innerHTML=""
+  citySearchInputEl.innerHTML=""
+}
+document.getElementById("clearCity").addEventListener("click", clearPastSearch)
+
+
+
+cityFormElement.addEventListener("submit", formSumbitAction);
+pastSearchBtnElement.addEventListener("click", pastSearchHandler);
 
   var formSumbitAction = function(event){
     event.preventDefault();
@@ -149,9 +193,12 @@ console.log("in the loop")
     if(city){
         var weatherData = getCityWeather(city);
         weatherData = weatherData.responseJSON;
-        console.log(weatherData)
+        //console.log(weatherData)
         displayWeather(weatherData, city);
         display5Day(weatherData, city)
+        cities.unshift({city});
+        saveSearch();
+        pastSearch(city);
     } else{
         alert("Please enter a City Name!");
     }
