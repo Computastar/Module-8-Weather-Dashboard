@@ -6,9 +6,10 @@ let forecastTitleEl = document.querySelector("#forecast");
 let forecastContainerEl = document.querySelector("#five-day-container");
 let pastSearchBtnElement = document.querySelector("#past-search-buttons");
 
-var weatherData = weatherData;
+var weatherData;
+let notFound = new Boolean();
 
-getCityWeather = function(city){
+getWeatherByCity = function(city){
 
     if(city){
       console.log(city)
@@ -33,7 +34,7 @@ getCityWeather = function(city){
   };
 }
 
-let displayWeather = function (weatherData, city) {
+let displayTodaysWeather = function (weatherData, city) {
   //clear old weather content
   weatherContainerEl.textContent = "";
   citySearchInputEl.textContent = city;
@@ -78,7 +79,7 @@ let displayWeather = function (weatherData, city) {
   weatherContainerEl.appendChild(humidityEl);
 };
 
-const display5Day = function(weatherData){
+const displayFiveDayWeather = function(weatherData){
   forecastContainerEl.textContent = " "
   forecastTitleEl.textContent = "5-Day Forecast:";
   forecastContainerEl.classList = "d-flex justify-content-between";
@@ -166,29 +167,54 @@ var pastSearchHandler = function(event){
     // pastSearchBtnElement.innerHTML= " ";
     var city = event.target.getAttribute("data-city");
     console.log('event.target', event.target);
-    if(city){
-        getCityWeather(city);
-        get5Day(city);
-    }
-}
+    
+    getWeatherData(city);
 
-var clearPastSearch = function(){
+    }
+
+
+var clearPastSearch = function(notFound){
+if (notFound) {
+  forecastContainerEl.innerHTML=""
+  forecastTitleEl.innerHTML=""
+  weatherContainerEl.innerHTML=""
+  citySearchInputEl.innerHTML=""
+  } 
+  else 
+  {
   forecastContainerEl.innerHTML=""
   pastSearchBtnElement.innerHTML=""
   forecastTitleEl.innerHTML=""
   weatherContainerEl.innerHTML=""
   citySearchInputEl.innerHTML=""
+  }
+ 
 }
-document.getElementById("clearCity").addEventListener("click", clearPastSearch)
 
+document.getElementById("clearCity").addEventListener("click", function(){clearPastSearch(false)})
 
-
-cityFormElement.addEventListener("submit", formSumbitAction);
 pastSearchBtnElement.addEventListener("click", pastSearchHandler);
 
 
 var toUpper = function(inputString){
-  return toUpper = inputString.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+  return inputString.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+}
+
+var getWeatherData = function(city){
+  
+  let weatherData = getWeatherByCity(city);
+
+  if (weatherData.status === 404){
+    alert("City not found")
+    notFound = true;
+    clearPastSearch(notFound);
+  }
+    else {
+      notFound=false
+  weatherData = weatherData.responseJSON;
+  displayTodaysWeather(weatherData,city);
+  displayFiveDayWeather(weatherData,city)
+}
 }
 
   var formSumbitAction = function(event){
@@ -198,29 +224,20 @@ var toUpper = function(inputString){
 
     city = toUpper(city)
 
-    if(city){
-        var weatherData = getCityWeather(city);
+    if(city) {
 
-        //console.log(foobarr.status)
+        getWeatherData(city)
 
-        console.log(weatherData)
-
-        if (weatherData.status === 404){
-          alert("City not found")
-        }
-        else {
-
-        weatherData = weatherData.responseJSON;
-        
-        displayWeather(weatherData, city);
-        display5Day(weatherData, city)
+        if (!notFound) {
         cities.unshift({city});
         saveSearch();
         pastSearch(city);
+         }
         }
-    } else{
+    else{
         alert("Please enter a City Name!");
     }
   }
 
-  cityFormElement.addEventListener("submit", formSumbitAction);
+  //cityFormElement.addEventListener("submit", formSumbitAction);
+  document.getElementById("search").addEventListener("click", formSumbitAction)
