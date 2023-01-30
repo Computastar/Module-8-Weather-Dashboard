@@ -242,7 +242,7 @@ var getWeatherData = function(city){
   function getLocation() {
     alert("muther fuker")
     if (navigator.geolocation) {
-      //position = navigator.geolocation.getCurrentPosition(showError);
+      position = navigator.geolocation.getCurrentPosition(showError);
       console.log("Lat=" + position.coords.latitude + " Long=" + position.coords.longitude)
     } else {
       alert("Geolocation is not supported by this browser.");
