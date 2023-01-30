@@ -6,14 +6,16 @@ let forecastTitleEl = document.querySelector("#forecast");
 let forecastContainerEl = document.querySelector("#five-day-container");
 let pastSearchBtnElement = document.querySelector("#past-search-buttons");
 
+const apiKey = "2726ba0963847f452e627fcd003602d0"
 var weatherData;
 let notFound = new Boolean();
+var cities = [];
 
 getWeatherByCity = function(city){
 
     if(city){
       console.log(city)
-      const apiKey = "2726ba0963847f452e627fcd003602d0"
+
       const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
       var weatherData 
       return $.ajax({
@@ -25,13 +27,34 @@ getWeatherByCity = function(city){
 
          weatherData = weatherDataResponse;
 
-      //displayWeather(weatherData, city);
-      //console.log(JSON.stringify(weatherData),city)
-        //console.log(weatherData)
         return weatherData;
         }
     });
   };
+}
+
+getWeatherByLocation = function(coord) {
+  if(coord){
+    console.log(coord[0] + " " + coord[1])
+    const lat = coord[0];
+    const lon = coord[1];
+
+  
+    const queryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+    var weatherData 
+    return $.ajax({
+      url: queryURL,
+      method: "GET",
+      async: false,
+
+      success : function(weatherDataResponse) {
+
+       weatherData = weatherDataResponse;
+
+      return weatherData;
+      }
+  });
+}
 }
 
 let displayTodaysWeather = function (weatherData, city) {
@@ -142,17 +165,15 @@ console.log("in the loop")
       }
    }
   
-   var cities = [];
+
 
    var saveSearch = function(){
-console.log(cities)
+    console.log(cities)
     localStorage.setItem("cities", JSON.stringify(cities));
   };
 
   var pastSearch = function(pastSearch){
- 
-    // console.log(pastSearch)
-
+     // console.log(pastSearch)
     pastSearchEl = document.createElement("button");
     pastSearchEl.textContent = pastSearch;
     pastSearchEl.classList = "d-flex w-100 btn-light border p-2";
@@ -213,7 +234,7 @@ var getWeatherData = function(city){
       notFound=false
   weatherData = weatherData.responseJSON;
   displayTodaysWeather(weatherData,city);
-  displayFiveDayWeather(weatherData,city)
+  displayFiveDayWeather(weatherData)
 }
 }
 
@@ -239,29 +260,76 @@ var getWeatherData = function(city){
     }
   }
 
-  function getLocation() {
-    alert("muther fuker")
-    if (navigator.geolocation) {
-      position = navigator.geolocation.getCurrentPosition(showError);
-      console.log("Lat=" + position.coords.latitude + " Long=" + position.coords.longitude)
+function getLocationOld(callback, event) {
+  event.preventDefault();
+
+    const position = {
+      lat: null,
+      lon: null
+    };
+
+    navigator.geolocation.getCurrentPosition(showError)
+
+    console.log(position)
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    console.log(lat + " " + lon)
+
+    return callback(position)
+
+}
+
+ function getLocation(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(showLocation,showError);
+
+  }
+
+
+
+  function showLocation(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    console.log(lat + " " + lon);
+
+    let weatherData = getWeatherByLocation([lat, lon]);
+    console.log(weatherData);
+
+    if (weatherData.status === 404) {
+      alert("location not found");
+      notFound = true;
+      clearPastSearch(notFound);
     } else {
-      alert("Geolocation is not supported by this browser.");
+      notFound = false;
+      weatherData = weatherData.responseJSON;
+      console.log(weatherData);
+
+      city = weatherData.city.name;
+      displayTodaysWeather(weatherData, city);
+      displayFiveDayWeather(weatherData);
+
+      if (!notFound) {
+        cities.unshift({ city });
+        saveSearch();
+        pastSearch(city);
+      }
     }
   }
+
   
   function showError(error) {
     switch(error.code) {
       case error.PERMISSION_DENIED:
-        x.innerHTML = "User denied the request for Geolocation."
+        console.log("User denied the request for Geolocation.");
         break;
       case error.POSITION_UNAVAILABLE:
-        x.innerHTML = "Location information is unavailable."
+        console.log("Location information is unavailable.");
         break;
       case error.TIMEOUT:
-        x.innerHTML = "The request to get user location timed out."
+        console.log("The request to get user location timed out.");
         break;
       case error.UNKNOWN_ERROR:
-        x.innerHTML = "An unknown error occurred."
+        console.log("An unknown error occurred.");
         break;
     }
   }
@@ -269,4 +337,4 @@ var getWeatherData = function(city){
 
   //cityFormElement.addEventListener("submit", formSumbitAction);
   document.getElementById("search").addEventListener("click", formSumbitAction)
-  document.getElementById("useLocation").addEventListener("click", getLocation)
+  document.getElementById("useLocation").addEventListener("click",getLocation)
