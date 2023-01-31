@@ -61,3 +61,4 @@ GitHub Page Link
 https://computastar.github.io/Weather-Dashboard/
 
 ## Screenshots
+![Weather Dashboard](./assets/images/screenshot.jpeg)
