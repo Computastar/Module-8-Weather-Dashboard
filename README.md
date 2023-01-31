@@ -42,7 +42,8 @@ JS (JavaScript)
 
 ## Site
 GitHub Public Repo
-https://github.com/Mcnoor/Challenge-6-BC
+https://github.com/Computastar/Weather-Dashboard
 GitHub Page Link
-https://mcnoor.github.io/Challenge-6-BC/
-images
+https://computastar.github.io/Weather-Dashboard/
+
+## Screenshots
