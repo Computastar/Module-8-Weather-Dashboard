@@ -1,4 +1,4 @@
-Server-Side APIs Challenge: Weather Dashboard
+# Server-Side API : Weather Dashboard
 
 ## Overview
 To create a Weather Dashboard that fetches from a weather API and displays the current day's Temperature, Wind Speed and Humidity level. In addition, diplays a a 5-Day forcast below with the data fetched for the next 5 days.
@@ -11,39 +11,53 @@ I added some error checking from the data returned, to see if the city existed, 
 
 
 ## How to use
-Search for by City:
-Click on Search bar
+**Search for by City:**
 
-Enter in City
+- Click on Search bar
 
-Displays current weather forcast
+- Enter in City
 
-Displays next 5-Days forcast
+- Click the Search button
 
-Use Current Location
+- Displays current weather forcast
 
-Click Location button
+- Displays next 5-Days forcast
 
-You'll be asked to allow location service, select Allow
+**Use Current Location**
 
-Displays current weather forcast
+- Click Location button
 
-Displays next 5-Days forcast
+- You'll be asked to allow location service, select Allow
 
-Search History Functions
+- Displays current weather forcast
 
-Click on previous search to view again
-Clear all weather data forcast
+- Displays next 5-Days forcast
+
+**Search History Functions**
+
+- Click on previous search to view again
+
+- Clear all weather data forcast
 
 ## Site Makeup
+
 HTML (HyperText Markup Language)
+
 CSS (Cascading Style Sheets)/ BootStrap
-JS (JavaScript)
+
+JS (JavaScript) / JQuery
+
+OpenWeatherMap API
+
+Geolocation DOM API
 
 ## Site
 GitHub Public Repo
+
 https://github.com/Computastar/Weather-Dashboard
+
 GitHub Page Link
+
 https://computastar.github.io/Weather-Dashboard/
 
 ## Screenshots
