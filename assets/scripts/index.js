@@ -232,7 +232,9 @@ var getWeatherData = function (city) {
   let weatherData = getWeatherByCity(city);
 
   if (weatherData.status === 404) {
-    alert("City not found");
+  
+    showModal("City not found, please try again")
+
     notFound = true;
     clearPastSearch(notFound);
   } else {
@@ -262,7 +264,7 @@ function getCity(event) {
       pastSearch(city);
     }
   } else {
-    alert("Please enter a City Name!");
+     showModal("Please enter a city name");
   }
   cityInputElement.value = "";
 }
@@ -273,7 +275,7 @@ function getCity(event) {
 */
 function getLocation(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(showLocation, showError);
+  navigator.geolocation.getCurrentPosition(showLocation, showError  );
 }
 
 /* Function to call WeatherData api,
@@ -288,7 +290,7 @@ function showLocation(position) {
   let weatherData = getWeatherByLocation([lat, lon]);
 
   if (weatherData.status === 404) {
-    alert("location not found");
+    showModal("Location not found, please try again");
     notFound = true;
     clearPastSearch(notFound);
   } else {
@@ -327,6 +329,11 @@ function showError(error) {
   }
 }
 
+/* Function to show modal popups, pass in message */
+function showModal(message) {
+  $("#modal-content").html(message)
+  $("#myModal").modal('show');
+}
 
 /* Listening event handelers for HTML elements */
 document.getElementById("search").addEventListener("click", getCity);
