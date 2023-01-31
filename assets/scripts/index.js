@@ -135,7 +135,8 @@ function displayFiveDayWeather(weatherData) {
 
     //create an image icon element
     let weatherIcon = document.createElement("img");
-    weatherIcon.classList = "card-body text-center";
+    weatherIcon.classList = "card-body text-center ";
+    weatherIcon.id = weatherIcon + [i]
     weatherIcon.setAttribute(
       "src",
       `https://openweathermap.org/img/wn/${forecast[i].weather[0].icon}@2x.png`
@@ -263,6 +264,7 @@ function getCity(event) {
   } else {
     alert("Please enter a City Name!");
   }
+  cityInputElement.value = "";
 }
 
 /* Function to get location co-ordinates from geolocation api
@@ -325,6 +327,7 @@ function showError(error) {
   }
 }
 
+
 /* Listening event handelers for HTML elements */
 document.getElementById("search").addEventListener("click", getCity);
 document.getElementById("useLocation").addEventListener("click", getLocation);
@@ -332,3 +335,4 @@ document.getElementById("clearCity").addEventListener("click", function () {
   clearPastSearch(false);
 });
 pastSearchBtnElement.addEventListener("click", pastSearchHandler);
+
