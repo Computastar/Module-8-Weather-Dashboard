@@ -11,10 +11,23 @@ I added some error checking from the data returned, to see if the city existed, 
 
 
 ## How to use
+Search for by City:
 Click on Search bar
 
 Enter in City
+
 Displays current weather forcast
+
+Displays next 5-Days forcast
+
+Use Current Location
+
+Click Location button
+
+You'll be asked to allow location service, select Allow
+
+Displays current weather forcast
+
 Displays next 5-Days forcast
 
 Search History Functions
