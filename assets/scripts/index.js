@@ -9,6 +9,7 @@ let pastSearchBtnElement = document.querySelector("#past-search-buttons");
 
 /* Create varibles for functions */
 const apiKey = "2726ba0963847f452e627fcd003602d0";
+const modalTitle = "Weather Dashboard"
 var weatherData;
 let notFound = new Boolean();
 var cities = [];
@@ -233,7 +234,7 @@ var getWeatherData = function (city) {
 
   if (weatherData.status === 404) {
   
-    showModal("City not found, please try again")
+    showModal(modalTitle,"City not found, please try again")
 
     notFound = true;
     clearPastSearch(notFound);
@@ -264,7 +265,7 @@ function getCity(event) {
       pastSearch(city);
     }
   } else {
-     showModal("Please enter a city name");
+     showModal(modalTitle,"Please enter a city name");
   }
   cityInputElement.value = "";
 }
@@ -290,7 +291,7 @@ function showLocation(position) {
   let weatherData = getWeatherByLocation([lat, lon]);
 
   if (weatherData.status === 404) {
-    showModal("Location not found, please try again");
+    showModal(modalTitle,"Location not found, please try again");
     notFound = true;
     clearPastSearch(notFound);
   } else {
@@ -330,8 +331,9 @@ function showError(error) {
 }
 
 /* Function to show modal popups, pass in message */
-function showModal(message) {
+function showModal(modalTitle,message) {
   $("#modal-content").html(message)
+  $("#modal-title").text(modalTitle)
   $("#myModal").modal('show');
 }
 
